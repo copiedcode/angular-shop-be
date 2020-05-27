@@ -3,11 +3,16 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors');
-
-const indexRouter = require('./routes/index');
-const usersRouter = require('./routes/users');
-
 const app = express();
+
+
+// Import Routes
+const productsRoute = require('./routes/products');
+const usersRoute = require('./routes/users');
+
+//use routes
+app.use('/api/products', productsRoute);
+app.use('/api/users', usersRoute);
 
 app.use(cors({
     origin: "*",
