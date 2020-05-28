@@ -80,7 +80,7 @@ router.get('/:prodID', (req, res) =>{
             }
         }).catch(err => console.log(err));
 
-})
+});
 
 /* GET ALL PRODUCTS FROM A CATEGORY */
 router.get('/category/:catName', (req, res) =>{
@@ -120,8 +120,7 @@ router.get('/category/:catName', (req, res) =>{
         .then(prods => {
             if(prods.length > 0){
                 res.status(200).json({
-                    count: prods
-                        .length,
+                    count: prods.length,
                     products: prods
                 });
             } else {
