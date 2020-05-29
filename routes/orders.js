@@ -88,13 +88,43 @@ router.post('/new', (req, res) => {
 
                         let inCart = p.incart;
 
-                        //Deduct the number of pieces ordered from the quantity column in database
+                        //Subtract the number of pieces ordered from the quantity column in database
+                        if(data.quantity > 0) {
+                            data.quantity = data.quantity - inCart;
+                            if(data.quantity < 0){
+                                data.quantity = 0;
+                            }
+                        } else {
+                            data.quantity = 0;
+                        }
 
+                        // INSERT ORDER DETAILS
+                        database.table('orders_details')
+                            .insert({
+                                order_id: newOrderID,
+                                product_id: p-id,
+                                quantity: inCart
+                            }).then(newID =>{
+                                database.table('products')
+                                    .filter({id: p.id})
+                                    .update({
+                                        quantity: data.quantity
+                                    }).then(successNum =>{}).catch(err => console.log(err))
+
+                        }).catch(err => console.log(err));
                     });
+                } else {
+                    res.json({message: 'new order failed while adding order details', success: false})
                 }
-
-
+                res.json({
+                    message: `Order ${newOrderID} successfully placed.`,
+                    success: true,
+                    order_id: newOrderID,
+                    products: products
+                });
         }).catch(err => console.log(err));
+    } else {
+        res.json({message: 'New order failed.', success: false})
     }
 
 });
