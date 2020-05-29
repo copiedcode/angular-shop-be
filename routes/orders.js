@@ -129,4 +129,11 @@ router.post('/new', (req, res) => {
 
 });
 
+/* FAKE PAYMENT GATEWAY CALL */
+router.post('/payment', (req,res) => {
+    setTimeout(() => {
+        res.status(200).json({success:true});
+    }, 3000)
+});
+
 module.exports = router;
