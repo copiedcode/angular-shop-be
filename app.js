@@ -5,6 +5,13 @@ const logger = require('morgan');
 const cors = require('cors');
 const app = express();
 
+/* CORS */
+app.use(cors({
+    origin: '*',
+    methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'POST'],
+    allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
+}));
+
 
 // Import Routes
 const productsRoute = require('./routes/products');
@@ -16,12 +23,6 @@ app.use('/api/products', productsRoute);
 app.use('/api/users', usersRoute);
 app.use('/api/orders', ordersRoute);
 
-
-app.use(cors({
-    origin: "*",
-    methods: ['GET', 'POST', 'PATCH', 'DELETE', 'PUT'],
-    allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
-}));
 
 app.use(logger('dev'));
 app.use(express.json());
