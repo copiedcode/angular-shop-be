@@ -68,10 +68,9 @@ router.get('/:id', (req, res) =>{
 });
 
 /* PLACE A NEW ORDER */
-router.post('/new', (req, res) => {
+router.post('/new', async(req, res) => {
 
     let {userID, products} = req.body;
-    console.log(userID, products); //TODO: remove debug log
 
     if(userID != null && userID > 0 && !isNaN(userID)){
         database.table('orders')
