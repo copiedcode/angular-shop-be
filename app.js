@@ -11,7 +11,11 @@ app.use(cors({
     methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'POST'],
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
 }));
-
+app.use(logger('dev'));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+app.use(cookieParser());
+app.use(express.static(path.join(__dirname, 'public')));
 
 // Import Routes
 const productsRoute = require('./routes/products');
@@ -24,11 +28,7 @@ app.use('/api/users', usersRoute);
 app.use('/api/orders', ordersRoute);
 
 
-app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 
 module.exports = app;

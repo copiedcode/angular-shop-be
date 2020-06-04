@@ -101,7 +101,7 @@ router.post('/new', async(req, res) => {
                         database.table('orders_details')
                             .insert({
                                 order_id: newOrderID,
-                                product_id: p-id,
+                                product_id: p.id,
                                 quantity: inCart
                             }).then(newID =>{
                                 database.table('products')
