@@ -54,8 +54,6 @@ router.get('/', function(req, res) {
 router.get('/:prodID', (req, res) =>{
 
     let productID = req.params.prodID; //fetch the parameter from the link
-    console.log(productID); //TODO: remove debug log
-
 
     database.table('products as p')
         .join([{
@@ -78,7 +76,7 @@ router.get('/:prodID', (req, res) =>{
             if(prod){
                 res.status(200).json(prod);
             } else {
-                res.json({message: `No product found with ID ${productID} !`});
+                res.status("error").json({message: `No product found with ID ${productID} !`});
             }
         }).catch(err => console.log(err));
 

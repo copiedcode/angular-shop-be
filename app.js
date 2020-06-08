@@ -11,7 +11,7 @@ app.use(cors({
     methods: ['GET', 'PUT', 'DELETE', 'PATCH', 'POST'],
     allowedHeaders: 'Content-Type, Authorization, Origin, X-Requested-With, Accept'
 }));
-app.use(logger('dev'));
+app.use(logger('combined'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
